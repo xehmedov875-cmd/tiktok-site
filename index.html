@@ -1,25 +1,51 @@
-<input type="file" id="photo">
-<button onclick="sendPhoto()">Göndər</button>
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Kamera şəkil</h2>
+
+<video id="video" width="300" autoplay></video>
+<br><br>
+
+<button onclick="takePhoto()">Şəkil çək</button>
+<button onclick="sendPhoto()">Telegram-a göndər</button>
+
+<canvas id="canvas" width="300" height="200"></canvas>
 
 <script>
-function sendPhoto(){
 
-var fileInput = document.getElementById("photo");
+navigator.mediaDevices.getUserMedia({video:true})
+.then(function(stream){
+document.getElementById("video").srcObject = stream;
+});
 
-if(fileInput.files.length === 0){
-alert("Şəkil seç");
-return;
+function takePhoto(){
+var video = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+context.drawImage(video,0,0,300,200);
 }
 
+function sendPhoto(){
+
+var canvas = document.getElementById("canvas");
+
+canvas.toBlob(function(blob){
+
 var formData = new FormData();
-formData.append("photo", fileInput.files[0]);
+formData.append("photo", blob);
 
 fetch("http://127.0.0.1:5000/send",{
 method:"POST",
 body:formData
-})
-.then(res => res.text())
-.then(data => console.log(data));
+});
+
+});
 
 }
+
 </script>
+
+</body>
+</html>
