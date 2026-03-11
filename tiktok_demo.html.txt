@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Video Demo</title>
+
+<style>
+body{
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+.video{
+width:300px;
+height:500px;
+background:#222;
+margin:auto;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+button{
+margin-top:20px;
+padding:10px 20px;
+font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Video izl?yin</h2>
+
+<div class="video">
+Video sah?si
+</div>
+
+<button onclick="alert('B?y?ndiyiniz ucun t?s?kkurl?r!')">
+Like ??
+</button>
+
+</body>
+</html>
