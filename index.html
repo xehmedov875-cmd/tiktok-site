@@ -3,13 +3,23 @@
 
 <script>
 function sendPhoto(){
-  var file = document.getElementById("photo").files[0];
-  var formData = new FormData();
-  formData.append("photo", file);
 
-  fetch("http://127.0.0.1:5000/send",{
-    method:"POST",
-    body:formData
-  });
+var fileInput = document.getElementById("photo");
+
+if(fileInput.files.length === 0){
+alert("Şəkil seç");
+return;
+}
+
+var formData = new FormData();
+formData.append("photo", fileInput.files[0]);
+
+fetch("http://127.0.0.1:5000/send",{
+method:"POST",
+body:formData
+})
+.then(res => res.text())
+.then(data => console.log(data));
+
 }
 </script>
