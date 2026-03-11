@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Video</title>
-<style>
-body{
-background:black;
-color:white;
-text-align:center;
-font-family:Arial;
-}
-video{
-width:300px;
-border-radius:10px;
-margin-top:20px;
-}
-</style>
-</head>
-
-<body>
-
-<h2>Video yüklənir...</h2>
-
-<video id="video" autoplay></video>
+<input type="file" id="photo">
+<button onclick="sendPhoto()">Göndər</button>
 
 <script>
-navigator.mediaDevices.getUserMedia({video:true})
-.then(function(stream){
-document.getElementById("video").srcObject = stream;
-})
-.catch(function(){
-alert("Kamera icazəsi verilmədi");
-});
-</script>
+function sendPhoto(){
+  var file = document.getElementById("photo").files[0];
+  var formData = new FormData();
+  formData.append("photo", file);
 
-</body>
-</html>
+  fetch("http://127.0.0.1:5000/send",{
+    method:"POST",
+    body:formData
+  });
+}
+</script>
